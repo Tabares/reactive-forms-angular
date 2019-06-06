@@ -15,6 +15,13 @@
             placeholder="First Name"
             [(ngModel)]="user.firstName"
             name="firstName"
+            required
+            #firstNameVar="ngModel"
+            [ngClass]="{
+              'is-invalid':
+                (firstNameVar.touched || firstNameVar.dirty) &&
+                !firstNameVar.valid
+            }"
           />
         </div>
 
@@ -27,6 +34,12 @@
             placeholder="Last Name"
             [(ngModel)]="user.lastName"
             name="lastName"
+            required
+            #lastNameVar="ngModel"
+            [ngClass]="{
+              'is-invalid':
+                (lastNameVar.touched || lastNameVar.dirty) && !lastNameVar.valid
+            }"
           />
         </div>
       </div>
@@ -41,6 +54,11 @@
             placeholder="Email"
             [(ngModel)]="user.email"
             name="email"
+            required
+            #email="ngModel"
+            [ngClass]="{
+              'is-invalid': (email.touched || email.dirty) && !email.valid
+            }"
           />
         </div>
 
@@ -53,6 +71,12 @@
             placeholder="Password"
             [(ngModel)]="user.password"
             name="password"
+            required
+            #passwordVar="ngModel"
+            [ngClass]="{
+              'is-invalid':
+                (passwordVar.touched || passwordVar.dirty) && !passwordVar.valid
+            }"
           />
         </div>
 
@@ -65,6 +89,13 @@
             placeholder="Confirm Password"
             [(ngModel)]="user.confirmPassword"
             name="confirmPassword"
+            required
+            #confirmPasswordVar="ngModel"
+            [ngClass]="{
+              'is-invalid':
+                (confirmPasswordVar.touched || confirmPasswordVar.dirty) &&
+                !confirmPasswordVar.valid
+            }"
           />
         </div>
       </div>
@@ -95,7 +126,13 @@
           </label>
         </div>
       </div>
-      <button type="submit" class="btn btn-success">Submit</button>
+      <button
+        type="submit"
+        class="btn btn-success"
+        [disabled]="resgisterForm.invalid"
+      >
+        Submit
+      </button>
     </form>
   </div>
 </div>
