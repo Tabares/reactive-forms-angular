@@ -4,7 +4,12 @@
   </div>
 
   <div class="card-body">
-    <form novalidate #resgisterForm="ngForm" (ngSubmit)="save(resgisterForm)">
+    <form
+      novalidate
+      #resgisterForm="ngForm"
+      (ngSubmit)="save(resgisterForm)"
+      [appMatch]="[password, confirmPassword]"
+    >
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="firstName1">First Name</label>
@@ -16,6 +21,8 @@
             [(ngModel)]="user.firstName"
             name="firstName"
             required
+            minlength="2"
+            maxlength="13"
             #firstNameVar="ngModel"
             [ngClass]="{
               'is-invalid':
@@ -23,6 +30,18 @@
                 !firstNameVar.valid
             }"
           />
+
+          <div *ngIf="firstNameVar.invalid" class="invalid-feedback">
+            <div *ngIf="firstNameVar.errors.required">
+              First Name is required
+            </div>
+            <div *ngIf="firstNameVar.errors?.minlength">
+              The first name must be longer than 2 characters.
+            </div>
+            <div *ngIf="firstNameVar.errors?.maxlength">
+              The first name must be shorter than 13 characters.
+            </div>
+          </div>
         </div>
 
         <div class="form-group col-md-6">
@@ -36,11 +55,21 @@
             name="lastName"
             required
             #lastNameVar="ngModel"
+            minlength="2"
             [ngClass]="{
               'is-invalid':
                 (lastNameVar.touched || lastNameVar.dirty) && !lastNameVar.valid
             }"
           />
+
+          <div *ngIf="lastNameVar.invalid" class="invalid-feedback">
+            <div *ngIf="lastNameVar.errors.required">
+              Last Name is required
+            </div>
+            <div *ngIf="lastNameVar.errors?.minlength">
+              The last name must be longer than 2 characters.
+            </div>
+          </div>
         </div>
       </div>
 
@@ -56,10 +85,20 @@
             name="email"
             required
             #email="ngModel"
+            minlength="3"
             [ngClass]="{
               'is-invalid': (email.touched || email.dirty) && !email.valid
             }"
           />
+
+          <div *ngIf="email.invalid" class="invalid-feedback">
+            <div *ngIf="email.errors.required">
+              Email is required
+            </div>
+            <div *ngIf="email.errors?.minlength">
+              The email must be longer than 3 characters.
+            </div>
+          </div>
         </div>
 
         <div class="form-group col-md-4">
@@ -72,12 +111,17 @@
             [(ngModel)]="user.password"
             name="password"
             required
-            #passwordVar="ngModel"
+            #password="ngModel"
             [ngClass]="{
               'is-invalid':
-                (passwordVar.touched || passwordVar.dirty) && !passwordVar.valid
+                (password.touched || password.dirty) && !password.valid
             }"
           />
+          <div *ngIf="password.invalid" class="invalid-feedback">
+            <div *ngIf="password.errors.required">
+              Passwor is required
+            </div>
+          </div>
         </div>
 
         <div class="form-group col-md-4">
@@ -90,13 +134,22 @@
             [(ngModel)]="user.confirmPassword"
             name="confirmPassword"
             required
-            #confirmPasswordVar="ngModel"
+            #confirmPassword="ngModel"
             [ngClass]="{
               'is-invalid':
-                (confirmPasswordVar.touched || confirmPasswordVar.dirty) &&
-                !confirmPasswordVar.valid
+                (confirmPassword.touched || confirmPassword.dirty) &&
+                !confirmPassword.valid
             }"
           />
+
+          <div *ngIf="confirmPassword.invalid" class="invalid-feedback">
+            <div *ngIf="confirmPassword.errors.required">
+              Confirm password
+            </div>
+            <div *ngIf="confirmPassword.errors.mustMatch">
+              Confirm password
+            </div>
+          </div>
         </div>
       </div>
 
@@ -140,4 +193,6 @@
 <pre>
     <br />Dirty: {{ resgisterForm.dirty }} <br />Touched: {{ resgisterForm.touched }}
     <br />Valid: {{ resgisterForm.valid }} <br />Value: {{ resgisterForm.value | json }}
+    <br /> {{ firstNameVar.errors | json}}
+    <br /> {{ confirmPassword.errors | json}}
 </pre>
