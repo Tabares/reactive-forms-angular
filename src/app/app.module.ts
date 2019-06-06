@@ -3,11 +3,13 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
+import { ResgisterComponentComponent } from './resgister-component/resgister-component.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ResgisterComponentComponent
   ],
   imports: [
     BrowserModule
