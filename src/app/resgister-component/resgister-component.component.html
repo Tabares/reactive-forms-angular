@@ -13,9 +13,34 @@
             class="form-control"
             id="firstName"
             placeholder="First Name"
-            required
             formControlName="firstName"
+            [ngClass]="{
+              'is-invalid':
+                (registerForm.controls['firstName'].touched ||
+                  registerForm.controls['firstName'].dirty) &&
+                !registerForm.controls['firstName'].valid
+            }"
           />
+          <div
+            *ngIf="
+              registerForm.controls['firstName'].invalid &&
+              (registerForm.controls['firstName'].dirty ||
+                registerForm.controls['firstName'].touched)
+            "
+            class="alert alert-danger"
+          >
+            <div *ngIf="registerForm.controls['firstName'].errors.required">
+              First name is required.
+            </div>
+            <div *ngIf="registerForm.controls['firstName'].errors.minlength">
+              Name must be at least 4 characters long.
+            </div>
+            <div
+              *ngIf="registerForm.controls['firstName'].errors.forbiddenName"
+            >
+              Name cannot be Homero.
+            </div>
+          </div>
         </div>
 
         <div class="form-group col-md-6">
@@ -25,9 +50,32 @@
             class="form-control"
             id="lastName"
             placeholder="Last Name"
-            required
             formControlName="lastName"
+            [ngClass]="{
+              'is-invalid':
+                (registerForm.controls['lastName'].touched ||
+                  registerForm.controls['lastName'].dirty) &&
+                !registerForm.controls['lastName'].valid
+            }"
           />
+          <div
+            *ngIf="
+              registerForm.controls['lastName'].invalid &&
+              (registerForm.controls['lastName'].dirty ||
+                registerForm.controls['lastName'].touched)
+            "
+            class="alert alert-danger"
+          >
+            <div *ngIf="registerForm.controls['lastName'].errors.required">
+              First name is required.
+            </div>
+            <div *ngIf="registerForm.controls['lastName'].errors.minlength">
+              Name must be at least 4 characters long.
+            </div>
+            <div *ngIf="registerForm.controls['lastName'].errors.forbiddenName">
+              Name cannot be Simpson.
+            </div>
+          </div>
         </div>
       </div>
 
@@ -39,10 +87,29 @@
             class="form-control"
             id="inputEmail4"
             placeholder="Email"
-            required
-            email
             formControlName="email"
+            [ngClass]="{
+              'is-invalid':
+                (registerForm.controls['email'].touched ||
+                  registerForm.controls['email'].dirty) &&
+                !registerForm.controls['email'].valid
+            }"
           />
+          <div
+            *ngIf="
+              registerForm.controls['email'].invalid &&
+              (registerForm.controls['email'].dirty ||
+                registerForm.controls['email'].touched)
+            "
+            class="alert alert-danger"
+          >
+            <div *ngIf="registerForm.controls['email'].errors.required">
+              Email is required.
+            </div>
+            <div *ngIf="registerForm.controls['email'].errors.pattern">
+              Incorrect email pattern.
+            </div>
+          </div>
         </div>
 
         <div class="form-group col-md-4">
@@ -93,7 +160,7 @@
             class="form-check-input"
             type="checkbox"
             id="gridCheck"
-            [disabled]="!registerForm.valid"
+            [disabled]="!registerForm.controls['address'].valid"
           />
           <label class="form-check-label" for="gridCheck">
             Check me out
