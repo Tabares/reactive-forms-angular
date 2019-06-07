@@ -84,6 +84,7 @@
             [(ngModel)]="user.email"
             name="email"
             required
+            email
             #email="ngModel"
             minlength="3"
             [ngClass]="{
@@ -98,6 +99,9 @@
             <div *ngIf="email.errors?.minlength">
               The email must be longer than 3 characters.
             </div>
+            <span *ngIf="email.errors?.email">
+              Please enter a valid email address.
+            </span>
           </div>
         </div>
 
