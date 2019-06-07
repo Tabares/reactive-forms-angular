@@ -4,7 +4,7 @@
   </div>
 
   <div class="card-body">
-    <form>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="firstName">First Name</label>
@@ -13,7 +13,8 @@
             class="form-control"
             id="firstName"
             placeholder="First Name"
-            [formControl]="name"
+            required
+            formControlName="firstName"
           />
         </div>
 
@@ -24,6 +25,8 @@
             class="form-control"
             id="lastName"
             placeholder="Last Name"
+            required
+            formControlName="lastName"
           />
         </div>
       </div>
@@ -36,6 +39,9 @@
             class="form-control"
             id="inputEmail4"
             placeholder="Email"
+            required
+            email
+            formControlName="email"
           />
         </div>
 
@@ -60,32 +66,64 @@
         </div>
       </div>
 
-      <div class="form-group">
-        <label for="inputAddress">Address</label>
+      <div class="form-group" formGroupName="address">
+        <label for="inputAddress">Street</label>
         <input
           type="text"
           class="form-control"
-          id="inputAddress"
+          id="inputStreet"
           placeholder="1234 Main St"
+          required
+          formControlName="street"
+        />
+
+        <label for="inputAddress">City</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputCity"
+          placeholder="City"
+          formControlName="city"
         />
       </div>
 
+      <!-- <div formGroupName="address">
+        <h3>Address</h3>
+
+        <label>
+          Street:
+          <input type="text" formControlName="street" />
+        </label>
+
+        <label>
+          City:
+          <input type="text" formControlName="city" />
+        </label>
+      </div> -->
+
       <div class="form-group">
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="gridCheck" />
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="gridCheck"
+            [disabled]="!registerForm.valid"
+          />
           <label class="form-check-label" for="gridCheck">
             Check me out
           </label>
         </div>
       </div>
-      <button type="submit" class="btn btn-success">Submit</button>
+      <button
+        type="submit"
+        [disabled]="!registerForm.valid"
+        class="btn btn-success"
+      >
+        Submit
+      </button>
+      <button type="button" class="btn btn-warning" (click)="setRegister()">
+        Set default value
+      </button>
     </form>
   </div>
 </div>
-<pre>
-    <p>
-        Value: {{ name.value }}
-      </p>
-      <button class="btn btn-primary" (click)="updateName()">Update Name</button>
-
-</pre>
