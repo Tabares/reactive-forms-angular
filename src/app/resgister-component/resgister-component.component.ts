@@ -5,6 +5,7 @@ import {
   Validators,
   ValidatorFn,
   AbstractControl,
+  FormBuilder,
 } from '@angular/forms';
 
 export function forbiddenNameValidator(nameRe: RegExp): ValidatorFn {
@@ -21,27 +22,32 @@ export function forbiddenNameValidator(nameRe: RegExp): ValidatorFn {
 })
 export class ResgisterComponentComponent implements OnInit {
   private regex = /\S+@\S+\.\S+/;
-  registerForm = new FormGroup({
-    firstName: new FormControl('', [
-      Validators.required,
-      Validators.minLength(4),
-      forbiddenNameValidator(/homero/i),
-    ]),
-    lastName: new FormControl('', [
-      Validators.required,
-      Validators.minLength(4),
-      forbiddenNameValidator(/simpson/i),
-    ]),
-    email: new FormControl('', [
-      Validators.required,
-      Validators.pattern(this.regex),
-    ]),
-    address: new FormGroup({
-      street: new FormControl(''),
-      city: new FormControl(''),
+
+  registerForm = this.fb.group({
+    firstName: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(4),
+        forbiddenNameValidator(/homero/i),
+      ],
+    ],
+    lastName: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(4),
+        forbiddenNameValidator(/simpson/i),
+      ],
+    ],
+    email: ['', [Validators.required, Validators.pattern(this.regex)]],
+    address: this.fb.group({
+      street: ['', Validators.required],
+      city: [''],
     }),
   });
-  constructor() {}
+
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit() {}
 

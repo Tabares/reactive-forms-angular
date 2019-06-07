@@ -180,3 +180,16 @@
     </form>
   </div>
 </div>
+<pre>
+    <br/>
+        Form Status: {{ registerForm.status }}
+        <br/>
+        Form Value: {{ registerForm.value | json}}
+        <br/>
+        <br/>
+        address: {{ registerForm.controls['address'].valid }}
+        address: {{ registerForm.controls['address'].touched }}
+        address: {{ registerForm.controls['address'].value | json}}
+        street: {{ registerForm.controls['address'].controls['street'].value }}
+        <br/>
+</pre>
